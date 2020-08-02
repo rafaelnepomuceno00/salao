@@ -35,17 +35,36 @@ class DrawerPerson extends StatelessWidget {
           indent: 10,
         ),
         ListTile(
+            title: Text('Agendamentos'),
+            leading: Icon(
+              Icons.import_contacts
+              ,
+              color: Color.fromARGB(120, 120, 120, 120),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Calendario()),
+              );
+            }),
+        Divider(
+          color: Color.fromARGB(120, 120, 120, 120),
+          endIndent: 10,
+          indent: 10,
+        ),
+        ListTile(
             title: Text('Calendário'),
             leading: Icon(
               Icons.calendar_today,
               color: Color.fromARGB(120, 120, 120, 120),
             ),
             onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Calendario()),
-                  );
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Calendario()),
+              );
             }),
         Divider(
           color: Color.fromARGB(120, 120, 120, 120),
@@ -88,7 +107,6 @@ class DrawerPerson extends StatelessWidget {
           endIndent: 10,
           indent: 10,
         ),
-
       ],
     ));
   }
