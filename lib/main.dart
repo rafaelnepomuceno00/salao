@@ -9,11 +9,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      
       title: 'Salão Marina',
       theme: ThemeData(
-        primarySwatch: Colors.pink,
-        primaryColor: Colors.pinkAccent
-      ),
+          primarySwatch: Colors.pink, primaryColor: Colors.pinkAccent),
       debugShowCheckedModeBanner: false,
       home: HomePage(),
     );
