@@ -26,6 +26,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  intl: ^0.16.0
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -34,9 +36,11 @@ dependencies:
   sqflite: ^1.1.5
   url_launcher: ^5.0.2
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
