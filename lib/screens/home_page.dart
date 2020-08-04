@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:salao/helpers/register_helper.dart';
 import 'package:salao/screens/register_page.dart';
 import 'package:salao/widgets/drawer_person.dart';
@@ -13,14 +14,17 @@ class _HomePageState extends State<HomePage> {
   RegisterHelper helper = RegisterHelper();
 
   List<Register> register = List();
+  List<Register> registerToday = List();
+
+  DateTime dateCheck;
 
   @override
   void initState() {
-    helper.getAllRegisters().then((list) {
-      setState(() {
-        register = list;
-      });
-    });
+    super.initState();
+
+    dateCheck = DateTime.now();
+
+    _filterRegister();
   }
 
   @override
@@ -34,55 +38,139 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.white,
       drawer: DrawerPerson(),
       body: ListView.builder(
-        padding: EdgeInsets.all(10.0),
-        itemCount: register.length,
+        padding: EdgeInsets.only(left: 5, right: 5, top: 4),
+        itemCount: registerToday.length,
         itemBuilder: (context, index) {
           return _registerCard(context, index);
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pop(context);
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => RegisterPage()),
-          );
+          _showRegisterPage();
           // Add your onPressed code here!
         },
         child: Icon(Icons.add),
-        backgroundColor: Colors.pink,
+        backgroundColor: Colors.pinkAccent,
       ),
     );
   }
 
   Widget _registerCard(BuildContext context, int index) {
     return GestureDetector(
-      child: Card(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.5)),
-        child: Padding(
-          padding: EdgeInsets.all(10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                register[index].name ?? " ",
-                style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
-                overflow: TextOverflow.clip,
-                maxLines: 1,
-              ),
-              Text(
-                register[index].atend ?? " ",
-                style: TextStyle(
-                  fontSize: 18.0,
+        child: Card(
+          color: Color.fromARGB(100, 250, 65, 200),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.5)),
+          child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  registerToday[index].name.toString(),
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  overflow: TextOverflow.clip,
+                  maxLines: 1,
                 ),
-                overflow: TextOverflow.clip,
-                maxLines: 1,
-              ),
-            ],
+                Text(
+                  registerToday[index].atend ?? " ",
+                  style: TextStyle(
+                    fontSize: 18.0,
+                  ),
+                  overflow: TextOverflow.clip,
+                  maxLines: 1,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Flexible(
+                      child: Text(
+                        'Data: ${registerToday[index].date}' ?? " ",
+                        style: TextStyle(
+                          fontSize: 18.0,
+                        ),
+                        overflow: TextOverflow.clip,
+                        maxLines: 1,
+                      ),
+                    ),
+                    Flexible(
+                      child: Text(
+                        'Hora: ${registerToday[index].hour}' ?? " ",
+                        style: TextStyle(
+                          fontSize: 18.0,
+                        ),
+                        overflow: TextOverflow.clip,
+                        maxLines: 1,
+                      ),
+                    ),
+                  ],
+                ),
+                RichText(
+                    text: TextSpan(
+                  text: 'Valor: ',
+                  style: TextStyle(color: Colors.black, fontSize: 15),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: ' ${registerToday[index].value} R\$' ?? ' ',
+                        style: TextStyle(
+                            color: Colors.lightGreenAccent, fontSize: 13)),
+                  ],
+                )),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+        onTap: () {
+          _showRegisterPage(register: register[index]);
+        });
+  }
+
+  void _showRegisterPage({Register register}) async {
+    final recRegister = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => RegisterPage(
+                  register: register,
+                )));
+
+    if (recRegister != null) {
+      if (register != null) {
+        await helper.updateRegister(recRegister);
+      } else {
+        await helper.saveRegister(recRegister);
+      }
+      
+      _filterRegister();
+    }
+  }
+
+  void _getAllRegister() {
+    helper.getAllRegisters().then((list) {
+      setState(() {
+        register = list;
+      });
+    });
+  }
+
+  void _filterRegister() {
+    final DateTime now = DateTime.now();
+    final DateFormat formatter =
+        DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY, 'pt_BR');
+    final String formatted = formatter.format(now);
+
+    helper.getAllRegisters().then((list) {
+      setState(() {
+        register = list;
+
+        register.forEach((element) {
+          if (element.date == formatted) {
+            registerToday.add(element);
+          }
+        });
+      });
+    });
   }
 }

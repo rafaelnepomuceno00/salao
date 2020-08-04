@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:salao/screens/calendar.dart';
+import 'package:salao/screens/allregister_page.dart';
+import 'package:salao/screens/calendar_page.dart';
+import 'package:salao/screens/financial_page.dart';
+import 'package:salao/screens/historic_page.dart';
 import 'package:salao/screens/home_page.dart';
 
 class DrawerPerson extends StatelessWidget {
@@ -45,7 +48,7 @@ class DrawerPerson extends StatelessWidget {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Calendario()),
+                MaterialPageRoute(builder: (context) => AllRegister()),
               );
             }),
         Divider(
@@ -81,7 +84,7 @@ class DrawerPerson extends StatelessWidget {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Calendario()),
+                MaterialPageRoute(builder: (context) => Historic()),
               );
             }),
         Divider(
@@ -99,7 +102,7 @@ class DrawerPerson extends StatelessWidget {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Calendario()),
+                MaterialPageRoute(builder: (context) => Financial()),
               );
             }),
         Divider(

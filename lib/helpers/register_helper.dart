@@ -6,8 +6,9 @@ final String idColumn = 'idColumn';
 final String nameColumn = 'nameColumn';
 final String dataColumn = 'dataColumn';
 final String atendColumn = 'atendColumn';
-final String horaColumn = 'horaColumn';
-final String valorColmn = 'valorColumn';
+final String hourColumn = 'hourColumn';
+final String valueColmn = 'valueColumn';
+final String doneColumn = 'doneColumn';
 
 class RegisterHelper {
   static final RegisterHelper _instance = RegisterHelper.internal();
@@ -35,7 +36,7 @@ class RegisterHelper {
         onCreate: (Database db, int newerVersion) async {
       await db.execute(
           'CREATE TABLE $registerTable($idColumn INTEGER PRIMARY KEY, $nameColumn TEXT, $dataColumn TEXT,'
-          '$atendColumn TEXT, $horaColumn TEXT, $valorColmn TEXT)');
+          '$atendColumn TEXT, $hourColumn TEXT, $valueColmn TEXT, $doneColumn TEXT)');
     });
   }
 
@@ -53,8 +54,10 @@ class RegisterHelper {
           nameColumn,
           dataColumn,
           atendColumn,
-          horaColumn,
-          valorColmn
+          hourColumn,
+          valueColmn,
+          doneColumn
+
         ],
         where: '$idColumn = ?',
         whereArgs: [id]);
@@ -102,29 +105,32 @@ class RegisterHelper {
 class Register {
   int id;
   String name;
-  String data;
+  String date;
   String atend;
-  String hora;
-  String valor;
+  String hour;
+  String value;
+  String done;
 
   Register();
 
   Register.fromMap(Map map) {
     id = map[idColumn];
     name = map[nameColumn];
-    data = map[dataColumn];
+    date = map[dataColumn];
     atend = map[atendColumn];
-    hora = map[horaColumn];
-    valor = map[valorColmn];
+    hour = map[hourColumn];
+    value = map[valueColmn];
+    done = map [doneColumn];
   }
 
   Map toMap() {
     Map<String, dynamic> map = {
       nameColumn: name,
-      dataColumn: data,
+      dataColumn: date,
       atendColumn: atend,
-      horaColumn: hora,
-      valorColmn: valor
+      hourColumn: hour,
+      valueColmn: value,
+      doneColumn: done,
     };
     if (id != null) {
       map[idColumn] = id;
@@ -134,6 +140,6 @@ class Register {
 
   @override
   String toString() {
-    return "Register(id: $id, name: $name, data: $data, atend: $atend, hora: $hora, valor: $valor)";
+    return "Register(id: $id, name: $name, atend: $atend,  data: $date,hora: $hour, valor: $value, isDone: $done)";
   }
 }

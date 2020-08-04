@@ -18,7 +18,10 @@ class MyApp extends StatelessWidget {
       
       title: 'Salão Marina',
       theme: ThemeData(
-          primarySwatch: Colors.pink, primaryColor: Colors.pinkAccent),
+          primarySwatch: Colors.pink,
+          primaryColor: Colors.pink
+
+      ),
       debugShowCheckedModeBanner: false,
 
       home: HomePage(),
