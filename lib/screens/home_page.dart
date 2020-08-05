@@ -147,13 +147,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _getAllRegister() {
-    helper.getAllRegisters().then((list) {
-      setState(() {
-        register = list;
-      });
-    });
-  }
 
   void _filterRegister() {
     final DateTime now = DateTime.now();

@@ -19,8 +19,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final _hourController = TextEditingController();
   final _valueController = TextEditingController();
 
-  final _namefocus = FocusNode();
-
   bool _userEdited = false;
 
   Register _editedRegister;
@@ -62,7 +60,6 @@ class _RegisterPageState extends State<RegisterPage> {
         _editedRegister.date =
             DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY, 'pt_br')
                 .format(_pickedDate);
-
       });
     }
   }
@@ -89,12 +86,13 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              if (_editedRegister.name != null &&
-                  _editedRegister.name.isNotEmpty) {
+              if (_checkEmpty1() &&
+                  _checkEmpty2() &&
+                  _checkEmpty3() &&
+                  _checkEmpty4() &&
+                  _checkEmpty5() == true) {
                 Navigator.pop(context, _editedRegister);
-              } else {
-                FocusScope.of(context).requestFocus(_namefocus);
-              }
+              } else {}
             },
             child: Icon(Icons.save),
           ),
@@ -118,7 +116,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 TextField(
                   controller: _nameController,
-                  focusNode: _namefocus,
                   decoration:
                       InputDecoration(labelText: 'Cliente:', hintText: 'Nome'),
                   onChanged: (text) {
@@ -213,4 +210,45 @@ class _RegisterPageState extends State<RegisterPage> {
       return Future.value(true);
     }
   }
+
+  bool _checkEmpty1() {
+    if (_editedRegister.name != null && _editedRegister.name.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool _checkEmpty2() {
+    if (_editedRegister.atend != null && _editedRegister.atend.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool _checkEmpty3() {
+    if (_editedRegister.date != null && _editedRegister.date.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool _checkEmpty4() {
+    if (_editedRegister.date != null && _editedRegister.date.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool _checkEmpty5() {
+    if (_editedRegister.value != null && _editedRegister.value.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
+//
