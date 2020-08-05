@@ -92,7 +92,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   _checkEmpty4() &&
                   _checkEmpty5() == true) {
                 Navigator.pop(context, _editedRegister);
-              } else {}
+              } else {
+                _requestSave();
+              }
             },
             child: Icon(Icons.save),
           ),
@@ -202,6 +204,38 @@ class _RegisterPageState extends State<RegisterPage> {
                       Navigator.pop(context);
                     },
                     child: Text('Sim'))
+              ],
+            );
+          });
+      return Future.value(false);
+    } else {
+      return Future.value(true);
+    }
+  }
+
+  Future<bool> _requestSave() {
+    if (_userEdited) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(
+                'Campos Vazios!',
+                textAlign: TextAlign.center,
+              ),
+              content: Text(
+                'Ainda há campos vazios, os preencha para poder salvar',
+                textAlign: TextAlign.center,
+              ),
+              actions: <Widget>[
+                Center(
+                  child: FlatButton(
+                      color: Colors.grey[100],
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text('ok', style: TextStyle(color: Colors.pinkAccent),)),
+                )
               ],
             );
           });

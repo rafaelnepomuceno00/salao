@@ -20,11 +20,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+
     super.initState();
 
     dateCheck = DateTime.now();
 
     _filterRegister();
+    setState(() {
+
+    });
   }
 
   @override
@@ -135,18 +139,15 @@ class _HomePageState extends State<HomePage> {
             builder: (context) => RegisterPage(
                   register: register,
                 )));
-
     if (recRegister != null) {
       if (register != null) {
         await helper.updateRegister(recRegister);
       } else {
         await helper.saveRegister(recRegister);
       }
-      
       _filterRegister();
     }
   }
-
 
   void _filterRegister() {
     final DateTime now = DateTime.now();
@@ -155,14 +156,16 @@ class _HomePageState extends State<HomePage> {
     final String formatted = formatter.format(now);
 
     helper.getAllRegisters().then((list) {
-      setState(() {
-        register = list;
+      register = list;
 
-        register.forEach((element) {
-          if (element.date == formatted) {
-            registerToday.add(element);
-          }
-        });
+      register.forEach((element) {
+        if (element.date == formatted) {
+          registerToday.add(element);
+
+        }
+      });
+      setState(() {
+        registerToday = list;
       });
     });
   }
