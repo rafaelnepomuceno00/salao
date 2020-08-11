@@ -128,10 +128,69 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         onTap: () {
-          _showRegisterPage(register: register[index]);
+          _showOptions(context, index);
         });
   }
-
+  void _showOptions(BuildContext context, int index) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return BottomSheet(
+            onClosing: () {},
+            builder: (context) {
+              return Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: FlatButton(
+                          onPressed: () {
+                            helper.updateRegister(registerToday[index]);
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'Atendimento concluído',
+                            style: TextStyle(
+                                color: Colors.pinkAccent, fontSize: 20.0),
+                          )),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: FlatButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            _showRegisterPage(register: registerToday[index]);
+                          },
+                          child: Text(
+                            'Editar',
+                            style: TextStyle(
+                                color: Colors.pinkAccent, fontSize: 20.0),
+                          )),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: FlatButton(
+                          onPressed: () {
+                            helper.deleteRegister(registerToday[index].id);
+                            setState(() {
+                              registerToday.removeAt(index);
+                              Navigator.pop(context);
+                            });
+                          },
+                          child: Text(
+                            'Excluir',
+                            style: TextStyle(
+                                color: Colors.pinkAccent, fontSize: 20.0),
+                          )),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        });
+  }
   void _showRegisterPage({Register register}) async {
     final recRegister = await Navigator.push(
         context,

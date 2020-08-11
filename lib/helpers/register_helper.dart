@@ -7,7 +7,7 @@ final String nameColumn = 'nameColumn';
 final String dataColumn = 'dataColumn';
 final String atendColumn = 'atendColumn';
 final String hourColumn = 'hourColumn';
-final String valueColmn = 'valueColumn';
+final String valueColumn = 'valueColumn';
 final String doneColumn = 'doneColumn';
 
 class RegisterHelper {
@@ -36,7 +36,7 @@ class RegisterHelper {
         onCreate: (Database db, int newerVersion) async {
       await db.execute(
           'CREATE TABLE $registerTable($idColumn INTEGER PRIMARY KEY, $nameColumn TEXT, $dataColumn TEXT,'
-          '$atendColumn TEXT, $hourColumn TEXT, $valueColmn TEXT, $doneColumn TEXT)');
+          '$atendColumn TEXT, $hourColumn TEXT, $valueColumn TEXT, $doneColumn TEXT)');
     });
   }
 
@@ -55,7 +55,7 @@ class RegisterHelper {
           dataColumn,
           atendColumn,
           hourColumn,
-          valueColmn,
+          valueColumn,
           doneColumn
 
         ],
@@ -119,7 +119,7 @@ class Register {
     date = map[dataColumn];
     atend = map[atendColumn];
     hour = map[hourColumn];
-    value = map[valueColmn];
+    value = map[valueColumn];
     done = map [doneColumn];
   }
 
@@ -129,7 +129,7 @@ class Register {
       dataColumn: date,
       atendColumn: atend,
       hourColumn: hour,
-      valueColmn: value,
+      valueColumn: value,
       doneColumn: done,
     };
     if (id != null) {

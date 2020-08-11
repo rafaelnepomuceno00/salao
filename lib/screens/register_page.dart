@@ -18,6 +18,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final _dateController = TextEditingController();
   final _hourController = TextEditingController();
   final _valueController = TextEditingController();
+  final _doneController = TextEditingController();
+
 
   bool _userEdited = false;
 
@@ -36,9 +38,11 @@ class _RegisterPageState extends State<RegisterPage> {
       _dateController.text = _editedRegister.date;
       _hourController.text = _editedRegister.hour;
       _valueController.text = _editedRegister.value;
-      // ignore: unnecessary_statements
-      _editedRegister.date == '0';
+      _doneController.text = _editedRegister.done;
+
     }
+
+      _setDone();
   }
 
   DateTime _datetime = DateTime.now();
@@ -283,6 +287,13 @@ class _RegisterPageState extends State<RegisterPage> {
     } else {
       return false;
     }
+  }
+
+  void _setDone(){
+    _doneController.text = '0';
+    _editedRegister.done = '0';
+
+
   }
 }
 //
