@@ -17,11 +17,13 @@ class Calendario extends StatelessWidget {
       ),
       drawer: DrawerPerson(),
       body: Container(
-        child: TableCalendar(
-          calendarController: _calendarController,
-          locale: ('pt''br'),
+        child: Center(
+          child: TableCalendar(
+            calendarController: _calendarController,
+            locale: ('pt''br'),
 
 
+          ),
         ),
         color: Colors.white,
       ),

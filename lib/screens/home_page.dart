@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:salao/helpers/register_helper.dart';
 import 'package:salao/screens/register_page.dart';
 import 'package:salao/widgets/drawer_person.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,6 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _calendarController = CalendarController();
   RegisterHelper helper = RegisterHelper();
 
   List<Register> register = List();
@@ -23,9 +25,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-
     _filterRegister();
-
   }
 
   @override
@@ -38,17 +38,49 @@ class _HomePageState extends State<HomePage> {
       ),
       backgroundColor: Colors.white,
       drawer: DrawerPerson(),
-      body: registerUndone.isNotEmpty ? ListView.builder(
-        padding: EdgeInsets.only(left: 5, right: 5, top: 4),
-        itemCount: registerUndone.length,
-        itemBuilder: (context, index) {
+      body: registerUndone.isNotEmpty
+          ? ListView.builder(
+              padding: EdgeInsets.only(left: 5, right: 5, top: 4),
+              itemCount: registerUndone.length,
+              itemBuilder: (context, index) {
+                return _registerCard(context, index);
+              },
+            )
+          : Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top:  30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
 
-            return _registerCard(context, index);
-
-        },
-      ) : Center(
-        child: Text('Não há agendamentos para hoje.',style: TextStyle(fontSize: 18.5),),
-      ),
+                  children: [
+                    Card(
+                      margin:
+                          EdgeInsets.only(top: 5, right: 5, left: 5, bottom: 5),
+                      child: Text(
+                        'Não há agendamentos hoje.',
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                      color: Color.fromARGB(255, 173, 255, 200),
+                    ),
+                    Divider(
+                      color: Colors.pinkAccent,
+                    ),
+                    TableCalendar(
+                      calendarController: _calendarController,
+                      locale: ('pt' 'br'),
+                      calendarStyle: CalendarStyle(
+                        todayColor: Colors.lightGreen,
+                      ),
+                    ),
+                    Divider(
+                      color: Colors.pinkAccent,
+                    ),
+                  ],
+                ),
+              ),
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           _showRegisterPage();
@@ -234,7 +266,6 @@ class _HomePageState extends State<HomePage> {
 
         registerToday.forEach((element) {
           if (element.done == '0') registerUndone.add(element);
-
         });
       });
     });
