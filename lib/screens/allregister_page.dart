@@ -13,12 +13,14 @@ class _AllRegisterState extends State<AllRegister> {
   RegisterHelper helper = RegisterHelper();
 
   List<Register> register = List();
+  List<Register> registerToday = List();
+  List<Register> registerUndone = List();
 
   @override
   void initState() {
     super.initState();
 
-    _getAllRegister();
+_filterRegister();
 
   }
   @override
@@ -33,7 +35,7 @@ class _AllRegisterState extends State<AllRegister> {
       drawer: DrawerPerson(),
       body: ListView.builder(
         padding: EdgeInsets.only(left: 5, right: 5, top: 4),
-        itemCount: register.length,
+        itemCount: registerUndone.length,
         itemBuilder: (context, index) {
           return _registerCard(context, index);
         },
@@ -53,7 +55,7 @@ class _AllRegisterState extends State<AllRegister> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  register[index].name.toString(),
+                  registerUndone[index].name.toString(),
                   style: TextStyle(
                     fontSize: 30.0,
                     fontWeight: FontWeight.bold,
@@ -62,7 +64,7 @@ class _AllRegisterState extends State<AllRegister> {
                   maxLines: 1,
                 ),
                 Text(
-                  register[index].atend ?? " ",
+                  registerUndone[index].atend ?? " ",
                   style: TextStyle(
                     fontSize: 18.0,
                   ),
@@ -74,7 +76,7 @@ class _AllRegisterState extends State<AllRegister> {
                   children: <Widget>[
                     Flexible(
                       child: Text(
-                        'Data: ${register[index].date}' ?? " ",
+                        'Data: ${registerUndone[index].date}' ?? " ",
                         style: TextStyle(
                           fontSize: 18.0,
                         ),
@@ -84,7 +86,7 @@ class _AllRegisterState extends State<AllRegister> {
                     ),
                     Flexible(
                       child: Text(
-                        'Hora: ${register[index].hour}' ?? " ",
+                        'Hora: ${registerUndone[index].hour}' ?? " ",
                         style: TextStyle(
                           fontSize: 18.0,
                         ),
@@ -100,7 +102,7 @@ class _AllRegisterState extends State<AllRegister> {
                       style: TextStyle(color: Colors.black, fontSize: 15),
                       children: <TextSpan>[
                         TextSpan(
-                            text: ' ${register[index].value} R\$' ?? ' ',
+                            text: ' ${registerUndone[index].value} R\$' ?? ' ',
                             style: TextStyle(
                                 color: Colors.lightGreenAccent, fontSize: 13)),
                       ],
@@ -129,7 +131,15 @@ class _AllRegisterState extends State<AllRegister> {
                       padding: EdgeInsets.all(10),
                       child: FlatButton(
                           onPressed: () {
-                            Navigator.pop(context);
+
+                            helper.updateRegister(registerUndone[index]);
+                            setState(() {
+                              _setDone(registerUndone, index);
+                              Navigator.pop(context);
+                              registerUndone.removeAt(index);
+                              _filterRegister();
+                            });
+
                           },
                           child: Text(
                             'Atendimento Concluído',
@@ -154,9 +164,9 @@ class _AllRegisterState extends State<AllRegister> {
                       padding: EdgeInsets.all(10),
                       child: FlatButton(
                           onPressed: () {
-                            helper.deleteRegister(register[index].id);
+                            helper.deleteRegister(registerUndone[index].id);
                             setState(() {
-                              register.removeAt(index);
+                              registerUndone.removeAt(index);
                               Navigator.pop(context);
                             });
                           },
@@ -189,16 +199,32 @@ class _AllRegisterState extends State<AllRegister> {
       } else {
         await helper.saveRegister(recRegister);
       }
-      _getAllRegister();
+_filterRegister();
     }
   }
 
-  void _getAllRegister() {
+
+
+  void _filterRegister() {
+
+
+
     helper.getAllRegisters().then((list) {
       setState(() {
         register = list;
+
+
+
+        register.forEach((element) {
+          if (element.done == '0') registerUndone.add(element);
+        });
       });
     });
+  }
+
+
+  void _setDone(register, int index) {
+    register[index].done = '1';
   }
 }
 

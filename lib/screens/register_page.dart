@@ -4,6 +4,9 @@ import 'package:salao/helpers/register_helper.dart';
 import 'package:intl/intl.dart';
 
 class RegisterPage extends StatefulWidget {
+
+  //contrutor com parametro opcional para editar ou criar um novo contato
+  
   final Register register;
 
   RegisterPage({this.register});
@@ -28,9 +31,13 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   void initState() {
     super.initState();
+
+    //vendo se um registro já existe e se não existir
     if (widget.register == null) {
       _editedRegister = Register();
     } else {
+      //aqui o contato é tranformado em mapa e criado um nov contato em formato de mapa
+
       _editedRegister = Register.fromMap(widget.register.toMap());
 
       _nameController.text = _editedRegister.name;

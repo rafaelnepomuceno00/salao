@@ -15,20 +15,17 @@ class _HomePageState extends State<HomePage> {
 
   List<Register> register = List();
   List<Register> registerToday = List();
+  List<Register> registerUndone = [];
 
   DateTime dateCheck;
 
   @override
   void initState() {
-
     super.initState();
 
-    dateCheck = DateTime.now();
 
     _filterRegister();
-    setState(() {
 
-    });
   }
 
   @override
@@ -41,12 +38,16 @@ class _HomePageState extends State<HomePage> {
       ),
       backgroundColor: Colors.white,
       drawer: DrawerPerson(),
-      body: ListView.builder(
+      body: registerUndone.isNotEmpty ? ListView.builder(
         padding: EdgeInsets.only(left: 5, right: 5, top: 4),
-        itemCount: registerToday.length,
+        itemCount: registerUndone.length,
         itemBuilder: (context, index) {
-          return _registerCard(context, index);
+
+            return _registerCard(context, index);
+
         },
+      ) : Center(
+        child: Text('Não há agendamentos para hoje.',style: TextStyle(fontSize: 18.5),),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -71,7 +72,7 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  registerToday[index].name.toString(),
+                  registerUndone[index].name.toString(),
                   style: TextStyle(
                     fontSize: 30.0,
                     fontWeight: FontWeight.bold,
@@ -80,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                   maxLines: 1,
                 ),
                 Text(
-                  registerToday[index].atend ?? " ",
+                  registerUndone[index].atend ?? " ",
                   style: TextStyle(
                     fontSize: 18.0,
                   ),
@@ -92,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                   children: <Widget>[
                     Flexible(
                       child: Text(
-                        'Data: ${registerToday[index].date}' ?? " ",
+                        'Data: ${registerUndone[index].date}' ?? " ",
                         style: TextStyle(
                           fontSize: 18.0,
                         ),
@@ -102,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Flexible(
                       child: Text(
-                        'Hora: ${registerToday[index].hour}' ?? " ",
+                        'Hora: ${registerUndone[index].hour}' ?? " ",
                         style: TextStyle(
                           fontSize: 18.0,
                         ),
@@ -118,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(color: Colors.black, fontSize: 15),
                   children: <TextSpan>[
                     TextSpan(
-                        text: ' ${registerToday[index].value} R\$' ?? ' ',
+                        text: ' ${registerUndone[index].value} R\$' ?? ' ',
                         style: TextStyle(
                             color: Colors.lightGreenAccent, fontSize: 13)),
                   ],
@@ -131,6 +132,7 @@ class _HomePageState extends State<HomePage> {
           _showOptions(context, index);
         });
   }
+
   void _showOptions(BuildContext context, int index) {
     showModalBottomSheet(
         context: context,
@@ -146,8 +148,13 @@ class _HomePageState extends State<HomePage> {
                       padding: EdgeInsets.all(10),
                       child: FlatButton(
                           onPressed: () {
-                            helper.updateRegister(registerToday[index]);
-                            Navigator.pop(context);
+                            helper.updateRegister(registerUndone[index]);
+                            setState(() {
+                              _setDone(registerUndone, index);
+                              Navigator.pop(context);
+                              registerUndone.removeAt(index);
+                              _filterRegister();
+                            });
                           },
                           child: Text(
                             'Atendimento concluído',
@@ -160,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                       child: FlatButton(
                           onPressed: () {
                             Navigator.pop(context);
-                            _showRegisterPage(register: registerToday[index]);
+                            _showRegisterPage(register: registerUndone[index]);
                           },
                           child: Text(
                             'Editar',
@@ -172,9 +179,9 @@ class _HomePageState extends State<HomePage> {
                       padding: EdgeInsets.all(10),
                       child: FlatButton(
                           onPressed: () {
-                            helper.deleteRegister(registerToday[index].id);
+                            helper.deleteRegister(registerUndone[index].id);
                             setState(() {
-                              registerToday.removeAt(index);
+                              registerUndone.removeAt(index);
                               Navigator.pop(context);
                             });
                           },
@@ -191,6 +198,7 @@ class _HomePageState extends State<HomePage> {
           );
         });
   }
+
   void _showRegisterPage({Register register}) async {
     final recRegister = await Navigator.push(
         context,
@@ -215,17 +223,24 @@ class _HomePageState extends State<HomePage> {
     final String formatted = formatter.format(now);
 
     helper.getAllRegisters().then((list) {
-      register = list;
-
-      register.forEach((element) {
-        if (element.date == formatted) {
-          registerToday.add(element);
-
-        }
-      });
       setState(() {
-        registerToday = list;
+        register = list;
+
+        register.forEach((element) {
+          if (element.date == formatted) {
+            registerToday.add(element);
+          }
+        });
+
+        registerToday.forEach((element) {
+          if (element.done == '0') registerUndone.add(element);
+
+        });
       });
     });
+  }
+
+  void _setDone(register, int index) {
+    register[index].done = '1';
   }
 }
