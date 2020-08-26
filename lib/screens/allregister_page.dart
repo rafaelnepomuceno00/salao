@@ -73,30 +73,21 @@ _filterRegister();
                   overflow: TextOverflow.clip,
                   maxLines: 1,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        'Data: ${registerUndone[index].date}' ?? " ",
-                        style: TextStyle(
-                          fontSize: 18.0,
-                        ),
-                        overflow: TextOverflow.clip,
-                        maxLines: 1,
-                      ),
-                    ),
-                    Flexible(
-                      child: Text(
-                        'Hora: ${registerUndone[index].hour}' ?? " ",
-                        style: TextStyle(
-                          fontSize: 18.0,
-                        ),
-                        overflow: TextOverflow.clip,
-                        maxLines: 1,
-                      ),
-                    ),
-                  ],
+                Text(
+                  'Data: ${registerUndone[index].date}' ?? " ",
+                  style: TextStyle(
+                    fontSize: 18.0,
+                  ),
+                  overflow: TextOverflow.clip,
+                  maxLines: 1,
+                ),
+                Text(
+                  'Hora: ${registerUndone[index].hour}' ?? " ",
+                  style: TextStyle(
+                    fontSize: 18.0,
+                  ),
+                  overflow: TextOverflow.clip,
+                  maxLines: 1,
                 ),
                 RichText(
                     text: TextSpan(

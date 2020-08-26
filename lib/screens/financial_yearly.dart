@@ -19,7 +19,7 @@ class _YearlyFinancialState extends State<YearlyFinancial> {
   double total20 = 0;
   double total21 = 0;
 
-  String dropdownValue = 'Selecione o Ano';
+
 
   @override
   void initState() {
@@ -69,7 +69,8 @@ class _YearlyFinancialState extends State<YearlyFinancial> {
                     children: [
                       Text(
                         '  Total:',
-                        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold),
                       ),
                       Spacer(),
                       Text(
@@ -101,7 +102,8 @@ class _YearlyFinancialState extends State<YearlyFinancial> {
                     children: [
                       Text(
                         '  Total:',
-                        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold),
                       ),
                       Spacer(),
                       Text(
@@ -117,7 +119,6 @@ class _YearlyFinancialState extends State<YearlyFinancial> {
             ),
           ],
         ),
-
       ),
     );
   }
@@ -128,16 +129,6 @@ class _YearlyFinancialState extends State<YearlyFinancial> {
       child: ListTile(
         title: Text(registerbyYear20[index].name),
         trailing: Text('Valor: ${registerbyYear20[index].value}'),
-      ),
-    );
-  }
-
-  Widget _gridList21(BuildContext context, int index) {
-    return Card(
-      elevation: 1.2,
-      child: ListTile(
-        title: Text(registerbyYear21[index].name),
-        trailing: Text('Valor: ${registerbyYear21[index].value}'),
       ),
     );
   }
@@ -160,6 +151,21 @@ class _YearlyFinancialState extends State<YearlyFinancial> {
       });
     });
   }
+
+
+
+  Widget _gridList21(BuildContext context, int index) {
+    return Card(
+      elevation: 1.2,
+      child: ListTile(
+        title: Text(registerbyYear21[index].name),
+        trailing: Text('Valor: ${registerbyYear21[index].value}'),
+      ),
+    );
+  }
+
+
+
   void _filterRegister2021() {
     helper.getAllRegisters().then((list) {
       setState(() {
@@ -178,6 +184,4 @@ class _YearlyFinancialState extends State<YearlyFinancial> {
       });
     });
   }
-
-
 }
