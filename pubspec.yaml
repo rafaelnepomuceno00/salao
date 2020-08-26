@@ -37,6 +37,10 @@ dependencies:
   url_launcher: ^5.0.2
   path_provider: ^1.6.7
   table_calendar: ^2.2.3
+  date_format: ^1.0.8
+  flutter_masked_text: ^0.8.0
+
+
 
 
 dev_dependencies:

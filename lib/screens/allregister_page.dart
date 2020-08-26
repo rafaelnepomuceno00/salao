@@ -27,6 +27,7 @@ _filterRegister();
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 10,
         title: Text('logo que carla fizer'),
         backgroundColor: Colors.pinkAccent,
         centerTitle: true,
@@ -46,6 +47,7 @@ _filterRegister();
   Widget _registerCard(BuildContext context, int index) {
     return GestureDetector(
         child: Card(
+          elevation: 7,
           color: Color.fromARGB(100, 250, 65, 200),
           shape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.5)),

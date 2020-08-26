@@ -75,7 +75,7 @@ class DrawerPerson extends StatelessWidget {
           indent: 10,
         ),
         ListTile(
-            title: Text('Histórico'),
+            title: Text('Atendimentos Concluídos'),
             leading: Icon(
               Icons.history,
               color: Color.fromARGB(120, 120, 120, 120),

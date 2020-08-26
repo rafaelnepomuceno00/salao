@@ -17,7 +17,7 @@ class Calendario extends StatelessWidget {
       ),
       drawer: DrawerPerson(),
       body: Container(
-        child: Center(
+        child:  Center(
           child: TableCalendar(
             calendarController: _calendarController,
             locale: ('pt''br'),

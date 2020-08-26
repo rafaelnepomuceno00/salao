@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:salao/helpers/register_helper.dart';
 import 'package:intl/intl.dart';
 
@@ -20,7 +21,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final _atendController = TextEditingController();
   final _dateController = TextEditingController();
   final _hourController = TextEditingController();
-  final _valueController = TextEditingController();
+  final _valueController = MoneyMaskedTextController();
   final _doneController = TextEditingController();
 
 
@@ -68,9 +69,9 @@ class _RegisterPageState extends State<RegisterPage> {
         _dateController.text =
             DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY, 'pt_br')
                 .format(_pickedDate);
-        _editedRegister.date =
-            DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY, 'pt_br')
-                .format(_pickedDate);
+        _editedRegister.date = DateFormat(DateFormat.YEAR_MONTH_DAY, 'pt_br').format(_pickedDate);
+          //  DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY, 'pt_br')
+            //    .format(_pickedDate).;
       });
     }
   }
@@ -181,7 +182,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 TextField(
                   controller: _valueController,
-                  keyboardType: TextInputType.numberWithOptions(),
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(labelText: 'Valor:'),
                   onChanged: (text) {
                     _userEdited = true;

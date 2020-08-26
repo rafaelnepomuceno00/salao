@@ -28,9 +28,10 @@ class _HistoricState extends State<Historic> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 10,
         title: Text(
-          'Histórico',
-          style: TextStyle(color: Colors.black),
+          'Atendimentos Concluídos',
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
       ),
@@ -48,6 +49,7 @@ class _HistoricState extends State<Historic> {
   Widget _registerCard(BuildContext context, int index) {
     return GestureDetector(
         child: Card(
+          elevation: 7,
           color: Color.fromARGB(100, 250, 65, 200),
           shape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.5)),
@@ -73,30 +75,21 @@ class _HistoricState extends State<Historic> {
                   overflow: TextOverflow.clip,
                   maxLines: 1,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        'Data: ${registerDone[index].date}' ?? " ",
-                        style: TextStyle(
-                          fontSize: 18.0,
-                        ),
-                        overflow: TextOverflow.clip,
-                        maxLines: 1,
-                      ),
-                    ),
-                    Flexible(
-                      child: Text(
-                        'Hora: ${registerDone[index].hour}' ?? " ",
-                        style: TextStyle(
-                          fontSize: 18.0,
-                        ),
-                        overflow: TextOverflow.clip,
-                        maxLines: 1,
-                      ),
-                    ),
-                  ],
+                Text(
+                  'Data: ${registerDone[index].date}' ?? " ",
+                  style: TextStyle(
+                    fontSize: 18.0,
+                  ),
+                  overflow: TextOverflow.clip,
+                  maxLines: 1,
+                ),
+                Text(
+                  'Hora: ${registerDone[index].hour}' ?? " ",
+                  style: TextStyle(
+                    fontSize: 18.0,
+                  ),
+                  overflow: TextOverflow.clip,
+                  maxLines: 1,
                 ),
                 RichText(
                     text: TextSpan(

@@ -32,7 +32,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('logo que carla fizer'),
+        elevation: 10,
+        title: Text('Salão Marina'),
         backgroundColor: Colors.pinkAccent,
         centerTitle: true,
       ),
@@ -48,10 +49,8 @@ class _HomePageState extends State<HomePage> {
             )
           : Center(
               child: Padding(
-                padding: const EdgeInsets.only(top:  30),
+                padding: const EdgeInsets.only(top: 30),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-
                   children: [
                     Card(
                       margin:
@@ -95,6 +94,7 @@ class _HomePageState extends State<HomePage> {
   Widget _registerCard(BuildContext context, int index) {
     return GestureDetector(
         child: Card(
+          elevation: 7,
           color: Color.fromARGB(100, 250, 65, 200),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.5)),
@@ -251,19 +251,20 @@ class _HomePageState extends State<HomePage> {
   void _filterRegister() {
     final DateTime now = DateTime.now();
     final DateFormat formatter =
-        DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY, 'pt_BR');
-    final String formatted = formatter.format(now);
-
+        DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY, 'pt_br');
+    formatter.format(now);
     helper.getAllRegisters().then((list) {
       setState(() {
         register = list;
-
         register.forEach((element) {
-          if (element.date == formatted) {
+          var convertDate = element.date;
+          var dateTimeTab =
+              DateFormat(DateFormat.YEAR_MONTH_DAY, 'pt_br').parse(convertDate);
+
+          if (dateTimeTab.difference(now).inDays == 0) {
             registerToday.add(element);
           }
         });
-
         registerToday.forEach((element) {
           if (element.done == '0') registerUndone.add(element);
         });
