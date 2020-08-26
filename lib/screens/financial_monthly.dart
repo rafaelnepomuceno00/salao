@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:salao/helpers/register_helper.dart';
 
 // ignore: must_be_immutable
@@ -14,6 +13,8 @@ class _MonthlyFinancialState extends State<MonthlyFinancial> {
 
   List<Register> register = List();
   double total = 0;
+
+  String _selectedMonth ;
 
   @override
   void initState() {
@@ -45,47 +46,32 @@ class _MonthlyFinancialState extends State<MonthlyFinancial> {
         ),
         body: TabBarView(
           children: [
-            DropDown(),
-            /*Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: register.length,
-                  itemBuilder: (context, index) {
-                    return DropDown();
-                  }),
-            ), */
-            Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: register.length,
-                  itemBuilder: (context, index) {
-                    return DropDown();
-                  }),
-            ),
-          ],
-        ),
-        /*bottomNavigationBar: BottomAppBar(
-          elevation: 5,
-          color: Colors.pinkAccent,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Row(
+            Column(
               children: [
-                Text(
-                  '  Total:',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-                Spacer(),
-                Text(
-                  '  Valor: ${total.toStringAsFixed(2)}',
-                  style: TextStyle(
-                    fontSize: 25,
+                Padding(
+                  padding: EdgeInsets.only(left: 65, right: 65, top: 10),
+                  child: DropdownButton(
+                    disabledHint: Text('Selecione o Mês'),
+                    isExpanded: true,
+                    value: _selectedMonth,
+                    items: _dropDownItem(),
+                    onChanged: (value) {
+                      _selectedMonth = value;
+                      setState(() {});
+                    },
+                    hint: Text('Selecione um Mês '),
                   ),
+                ),
+                Expanded(
+                  child: _buildScafold(context),
                 ),
               ],
             ),
-          ),
-        ),*/
+            Container(
+              color: Colors.white,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -106,127 +92,149 @@ class _MonthlyFinancialState extends State<MonthlyFinancial> {
       });
     });
   }
-}
 
-// ignore: must_be_immutable
-class DropDown extends StatefulWidget {
-  @override
-  _DropDownState createState() => _DropDownState();
-}
-
-class _DropDownState extends State<DropDown> {
-  RegisterHelper helper = RegisterHelper();
-
-  List<Register> register = List();
-  List<Register> registerFilter = List();
-  List<Register> registerbyYear20 = List();
-  List<Register> registerbyYear21 = List();
-
-  double total20 = 0;
-  double total21 = 0;
-
-  Widget _gridList20(BuildContext context, int index) {
-    return Card(
-      elevation: 1.2,
-      child: ListTile(
-        title: Text(registerbyYear20[index].name),
-        trailing: Text('Valor: ${registerbyYear20[index].value}'),
-      ),
-    );
+  List<DropdownMenuItem<String>> _dropDownItem() {
+    List<String> ddl = [
+      'Janeiro',
+      'Fevereiro',
+      'Março',
+      'Abril',
+      'Maio',
+      'Junho',
+      'Julho',
+      'Agosto',
+      'Setembro',
+      'Outubro',
+      'Novembro',
+      'Dezembro'
+    ];
+    return ddl
+        .map((value) => DropdownMenuItem(
+              value: value,
+              child: Text(value),
+            ))
+        .toList();
   }
 
-  void _filterRegister2020() {
-    helper.getAllRegisters().then((list) {
-      setState(() {
-        register = list;
-        register.forEach((element) {
-          if (element.done == '1') registerFilter.add(element);
-        });
-        registerFilter.forEach((element) {
-          if (element.date.contains('2020')) {
-            var valor = double.parse(element.value.replaceAll(',', '.'));
-            assert(valor is double);
-            total20 += valor;
-            registerbyYear20.add(element);
-          }
-        });
-      });
-    });
-  }
-
-  var _cidades = [
-    'Janeiro',
-    'Fevereiro',
-    'Março',
-    'Abril',
-    'Maio',
-    'Junho',
-    'Julho',
-    'Agosto',
-    'Setembro',
-    'Outubro',
-    'Novembro',
-    'Dezembro'
-  ];
-  var _itemSelecionado = 'Janeiro';
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: criaDropDownButton(),
-    );
-  }
-
-  criaDropDownButton() {
-    return Center(
-      child: Padding(
-        padding:
-            const EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 30),
-        child: Column(
-          children: <Widget>[
-            DropdownButton<String>(
-              isExpanded: true,
-              items: _cidades.map((String dropDownStringItem) {
-                return DropdownMenuItem<String>(
-                  value: dropDownStringItem,
-                  child: Text(
-                    dropDownStringItem,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                );
-              }).toList(),
-              onChanged: (String novoItemSelecionado) {
-                _dropDownItemSelected(novoItemSelecionado);
-                setState(() {
-
-                  this._itemSelecionado = novoItemSelecionado;
-                });
-                _filterRegister2020();
-              },
-              value: _itemSelecionado,
+  Widget _buildScafold(BuildContext context) {
+    switch (_selectedMonth) {
+      case 'Janeiro':
+        {
+          return Scaffold(
+            body: Container(
+              child: Text('Janeiro'),
             ),
-            Expanded(
-              child: Scaffold(
-                body: Container(
-                  padding:
-                      EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-                  child: ListView.builder(
-                      itemCount: registerbyYear20.length,
-                      itemBuilder: (context, index) {
-                        return _gridList20(context, index);
-                      }),
-                ),
+          );
+        }
+
+      case 'Fevereiro':
+        {
+          return Scaffold(
+            body: Container(
+              child: Text('Fevereiro'),
+            ),
+          );
+        }
+        break;
+      case 'Março':
+        {
+          return Scaffold(
+            body: Container(
+              child: Text('Março'),
+            ),
+          );
+        }
+        break;
+      case 'Abril':
+        {
+          return Scaffold(
+            body: Container(
+              child: Text('Abril'),
+            ),
+          );
+        }
+        break;
+      case 'Maio':
+        {
+          return Scaffold(
+            body: Container(
+              child: Text('Maio'),
+            ),
+          );
+        }
+        break;
+      case 'Junho':
+        {
+          return Scaffold(
+            body: Container(
+              child: Text('Junho'),
+            ),
+          );
+        }
+        break;
+      case 'Julho':
+        {
+          return Scaffold(
+            body: Container(
+              child: Text('Julho'),
+            ),
+          );
+        }
+        break;
+      case 'Agosto':
+        {
+          return Scaffold(
+            body: Container(
+              child: Text('Agosto'),
+            ),
+          );
+        }
+        break;
+      case 'Setembro':
+        {
+          return Scaffold(
+            body: Container(
+              child: Text('Setembro'),
+            ),
+          );
+        }
+        break;
+      case 'Outubro':
+        {
+          return Scaffold(
+            body: Container(
+              child: Text('Outubro'),
+            ),
+          );
+        }
+        break;
+      case 'Novembro':
+        {
+          return Scaffold(
+            body: Container(
+              child: Text('Novembro'),
+            ),
+          );
+        }
+        break;
+      case 'Dezembro':
+        {
+          return Scaffold(
+            body: Container(
+              child: Text('Dezembro'),
+            ),
+          );
+        }
+        break;
+      default:
+        return
+          Scaffold(
+            body: Center(
+              child: Container(
+                child: Text('Selecione um mês'),
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _dropDownItemSelected(String novoItem) {
-    setState(() {
-      this._itemSelecionado = novoItem;
-    });
+          );
+    }
   }
 }
