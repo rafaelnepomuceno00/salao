@@ -19,8 +19,6 @@ class _YearlyFinancialState extends State<YearlyFinancial> {
   double total20 = 0;
   double total21 = 0;
 
-
-
   @override
   void initState() {
     super.initState();
@@ -57,7 +55,7 @@ class _YearlyFinancialState extends State<YearlyFinancial> {
                 child: ListView.builder(
                     itemCount: registerbyYear20.length,
                     itemBuilder: (context, index) {
-                      return _gridList20(context, index);
+                      return _gridList(context, index, registerbyYear20);
                     }),
               ),
               bottomNavigationBar: BottomAppBar(
@@ -90,7 +88,7 @@ class _YearlyFinancialState extends State<YearlyFinancial> {
                 child: ListView.builder(
                     itemCount: registerbyYear21.length,
                     itemBuilder: (context, index) {
-                      return _gridList21(context, index);
+                      return _gridList(context, index, registerbyYear21);
                     }),
               ),
               bottomNavigationBar: BottomAppBar(
@@ -123,12 +121,12 @@ class _YearlyFinancialState extends State<YearlyFinancial> {
     );
   }
 
-  Widget _gridList20(BuildContext context, int index) {
+  Widget _gridList(BuildContext context, int index, List register) {
     return Card(
       elevation: 1.2,
       child: ListTile(
-        title: Text(registerbyYear20[index].name),
-        trailing: Text('Valor: ${registerbyYear20[index].value}'),
+        title: Text(register[index].name),
+        trailing: Text('Valor: ${register[index].value}'),
       ),
     );
   }
@@ -151,20 +149,6 @@ class _YearlyFinancialState extends State<YearlyFinancial> {
       });
     });
   }
-
-
-
-  Widget _gridList21(BuildContext context, int index) {
-    return Card(
-      elevation: 1.2,
-      child: ListTile(
-        title: Text(registerbyYear21[index].name),
-        trailing: Text('Valor: ${registerbyYear21[index].value}'),
-      ),
-    );
-  }
-
-
 
   void _filterRegister2021() {
     helper.getAllRegisters().then((list) {
