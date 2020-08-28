@@ -5,9 +5,8 @@ import 'package:salao/helpers/register_helper.dart';
 import 'package:intl/intl.dart';
 
 class RegisterPage extends StatefulWidget {
-
   //contrutor com parametro opcional para editar ou criar um novo contato
-  
+
   final Register register;
 
   RegisterPage({this.register});
@@ -23,7 +22,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final _hourController = TextEditingController();
   final _valueController = MoneyMaskedTextController();
   final _doneController = TextEditingController();
-
 
   bool _userEdited = false;
 
@@ -47,10 +45,9 @@ class _RegisterPageState extends State<RegisterPage> {
       _hourController.text = _editedRegister.hour;
       _valueController.text = _editedRegister.value;
       _doneController.text = _editedRegister.done;
-
     }
 
-      _setDone();
+    _setDone();
   }
 
   DateTime _datetime = DateTime.now();
@@ -69,9 +66,10 @@ class _RegisterPageState extends State<RegisterPage> {
         _dateController.text =
             DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY, 'pt_br')
                 .format(_pickedDate);
-        _editedRegister.date = DateFormat(DateFormat.YEAR_MONTH_DAY, 'pt_br').format(_pickedDate);
-          //  DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY, 'pt_br')
-            //    .format(_pickedDate).;
+        _editedRegister.date =
+            DateFormat(DateFormat.YEAR_MONTH_DAY, 'pt_br').format(_pickedDate);
+        //  DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY, 'pt_br')
+        //    .format(_pickedDate).;
       });
     }
   }
@@ -246,7 +244,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text('ok', style: TextStyle(color: Colors.pinkAccent),)),
+                      child: Text(
+                        'ok',
+                        style: TextStyle(color: Colors.pinkAccent),
+                      )),
                 )
               ],
             );
@@ -297,11 +298,9 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  void _setDone(){
+  void _setDone() {
     _doneController.text = '0';
     _editedRegister.done = '0';
-
-
   }
 }
 //

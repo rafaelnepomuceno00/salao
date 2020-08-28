@@ -153,18 +153,28 @@ class _HistoricState extends State<Historic> {
 
   void _filterRegister() {
 
+    register = [];
+    registerDone=[];
 
 
     helper.getAllRegisters().then((list) {
       setState(() {
         register = list;
-
-
-
-        register.forEach((element) {
+      register.forEach((element) {
           if (element.done == '1') registerDone.add(element);
         });
       });
+
+      _orderList();
     });
+  }
+
+  void _orderList() {
+    registerDone.sort((a, b) {
+      return a.date.toLowerCase().compareTo(b.date.toLowerCase());
+
+    });
+
+
   }
 }

@@ -126,9 +126,11 @@ class _YearlyFinancialState extends State<YearlyFinancial> {
       elevation: 1.2,
       child: ListTile(
         title: Text(register[index].name),
+        subtitle: Text(register[index].date),
         trailing: Text('Valor: ${register[index].value}'),
       ),
     );
+
   }
 
   void _filterRegister2020() {
@@ -146,6 +148,8 @@ class _YearlyFinancialState extends State<YearlyFinancial> {
             registerbyYear20.add(element);
           }
         });
+
+        _orderList(registerbyYear20);
       });
     });
   }
@@ -165,7 +169,15 @@ class _YearlyFinancialState extends State<YearlyFinancial> {
             registerbyYear21.add(element);
           }
         });
+
+        _orderList(registerbyYear21);
       });
+    });
+  }
+
+  void _orderList(List registerList) {
+    registerList.sort((a, b) {
+      return a.date.toLowerCase().compareTo(b.date.toLowerCase());
     });
   }
 }

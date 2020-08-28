@@ -172,12 +172,10 @@ class _HomePageState extends State<HomePage> {
                       child: FlatButton(
                           onPressed: () {
                             helper.updateRegister(registerUndone[index]);
-                            setState(() {
-                              _setDone(registerUndone, index);
-                              Navigator.pop(context);
-                              registerUndone.removeAt(index);
-                              _filterRegister();
-                            });
+                            _setDone(registerUndone, index);
+                            Navigator.pop(context);
+                            registerUndone.removeAt(index);
+                            _filterRegister();
                           },
                           child: Text(
                             'Atendimento concluído',
@@ -235,11 +233,15 @@ class _HomePageState extends State<HomePage> {
       } else {
         await helper.saveRegister(recRegister);
       }
+      setState(() {});
       _filterRegister();
     }
   }
 
   void _filterRegister() {
+    register = [];
+    registerUndone = [];
+    registerToday = [];
     final DateTime now = DateTime.now();
     final DateFormat formatter =
         DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY, 'pt_br');
@@ -247,23 +249,34 @@ class _HomePageState extends State<HomePage> {
     helper.getAllRegisters().then((list) {
       setState(() {
         register = list;
+
         register.forEach((element) {
           var convertDate = element.date;
           var dateTimeTab =
               DateFormat(DateFormat.YEAR_MONTH_DAY, 'pt_br').parse(convertDate);
 
-          if (dateTimeTab.difference(now).inDays == 0) {
+          if (dateTimeTab.difference(now).inDays == 0 &&
+              dateTimeTab.day == now.day) {
             registerToday.add(element);
           }
         });
+
         registerToday.forEach((element) {
           if (element.done == '0') registerUndone.add(element);
         });
+
+        _orderList();
       });
     });
   }
 
   void _setDone(register, int index) {
     register[index].done = '1';
+  }
+
+  void _orderList() {
+    registerUndone.sort((a, b) {
+      return a.hour.toLowerCase().compareTo(b.hour.toLowerCase());
+    });
   }
 }

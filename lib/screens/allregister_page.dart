@@ -9,7 +9,6 @@ class AllRegister extends StatefulWidget {
 }
 
 class _AllRegisterState extends State<AllRegister> {
-
   RegisterHelper helper = RegisterHelper();
 
   List<Register> register = List();
@@ -20,15 +19,15 @@ class _AllRegisterState extends State<AllRegister> {
   void initState() {
     super.initState();
 
-_filterRegister();
-
+    _filterRegister();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 10,
-        title: Text('logo que carla fizer'),
+        title: Text('Agendamentos'),
         backgroundColor: Colors.pinkAccent,
         centerTitle: true,
       ),
@@ -50,7 +49,7 @@ _filterRegister();
           elevation: 7,
           color: Color.fromARGB(100, 250, 65, 200),
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.5)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.5)),
           child: Padding(
             padding: EdgeInsets.all(10.0),
             child: Column(
@@ -91,15 +90,15 @@ _filterRegister();
                 ),
                 RichText(
                     text: TextSpan(
-                      text: 'Valor: ',
-                      style: TextStyle(color: Colors.black, fontSize: 15),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: ' ${registerUndone[index].value} R\$' ?? ' ',
-                            style: TextStyle(
-                                color: Colors.lightGreenAccent, fontSize: 13)),
-                      ],
-                    )),
+                  text: 'Valor: ',
+                  style: TextStyle(color: Colors.black, fontSize: 15),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: ' ${registerUndone[index].value} R\$' ?? ' ',
+                        style: TextStyle(
+                            color: Colors.lightGreenAccent, fontSize: 13)),
+                  ],
+                )),
               ],
             ),
           ),
@@ -124,7 +123,6 @@ _filterRegister();
                       padding: EdgeInsets.all(10),
                       child: FlatButton(
                           onPressed: () {
-
                             helper.updateRegister(registerUndone[index]);
                             setState(() {
                               _setDone(registerUndone, index);
@@ -132,7 +130,6 @@ _filterRegister();
                               registerUndone.removeAt(index);
                               _filterRegister();
                             });
-
                           },
                           child: Text(
                             'Atendimento Concluído',
@@ -177,14 +174,13 @@ _filterRegister();
         });
   }
 
-
   void _showRegisterPage({Register register}) async {
     final recRegister = await Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => RegisterPage(
-              register: register,
-            )));
+                  register: register,
+                )));
 
     if (recRegister != null) {
       if (register != null) {
@@ -192,32 +188,32 @@ _filterRegister();
       } else {
         await helper.saveRegister(recRegister);
       }
-_filterRegister();
+      _filterRegister();
     }
   }
 
-
-
   void _filterRegister() {
-
-
-
     helper.getAllRegisters().then((list) {
       setState(() {
         register = list;
 
-
-
         register.forEach((element) {
           if (element.done == '0') registerUndone.add(element);
+
         });
+
+        _orderList();
       });
     });
   }
 
-
   void _setDone(register, int index) {
     register[index].done = '1';
   }
-}
 
+  void _orderList() {
+    registerUndone.sort((a, b) {
+      return a.date.toLowerCase().compareTo(b.date.toLowerCase());
+    });
+  }
+}
