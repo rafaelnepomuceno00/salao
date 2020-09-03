@@ -33,11 +33,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 10,
-        title: Text('Salão Marina'),
-        backgroundColor: Colors.pinkAccent,
+        title: Text('Babearia'),
         centerTitle: true,
       ),
-      backgroundColor: Colors.white,
       drawer: DrawerPerson(),
       body: registerUndone.isNotEmpty
           ? ListView.builder(
@@ -55,26 +53,39 @@ class _HomePageState extends State<HomePage> {
                     Card(
                       margin:
                           EdgeInsets.only(top: 5, right: 5, left: 5, bottom: 5),
-                      child: Text(
-                        'Não há agendamentos hoje.',
-                        style: TextStyle(
-                          fontSize: 20,
+                      child: Container(
+                        margin: EdgeInsets.all(4.5),
+                        child: Text(
+                          'Não há agendamentos hoje.',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                          ),
                         ),
                       ),
-                      color: Color.fromARGB(255, 173, 255, 200),
+                      color: Color.fromARGB(255, 255, 255, 100),
                     ),
                     Divider(
-                      color: Colors.pinkAccent,
+                      color: Theme.of(context).accentColor,
                     ),
                     TableCalendar(
                       calendarController: _calendarController,
                       locale: ('pt' 'br'),
                       calendarStyle: CalendarStyle(
-                        todayColor: Colors.lightGreen,
+                        outsideDaysVisible: false,
+                        weekendStyle:
+                            TextStyle().copyWith(color: Colors.yellow[300]),
+                        weekdayStyle:
+                            TextStyle().copyWith(color: Colors.yellow[600]),
+                        holidayStyle:
+                            TextStyle().copyWith(color: Colors.yellow[300]),
+                        selectedColor:
+                        Colors.red[400],
+                        todayColor: Colors.red[300],
                       ),
                     ),
                     Divider(
-                      color: Colors.pinkAccent,
+                      color: Theme.of(context).accentColor,
                     ),
                   ],
                 ),
@@ -85,8 +96,10 @@ class _HomePageState extends State<HomePage> {
           _showRegisterPage();
           // Add your onPressed code here!
         },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.pinkAccent,
+        child: Icon(
+          Icons.add,
+          color: Colors.black,
+        ),
       ),
     );
   }
@@ -95,59 +108,71 @@ class _HomePageState extends State<HomePage> {
     return GestureDetector(
         child: Card(
           elevation: 7,
-          color: Color.fromARGB(100, 250, 65, 200),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.5)),
-          child: Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  registerUndone[index].name.toString(),
-                  style: TextStyle(
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  overflow: TextOverflow.clip,
-                  maxLines: 1,
+          child: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.yellow[600], Colors.yellow[500]],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                 ),
-                Text(
-                  registerUndone[index].atend ?? " ",
-                  style: TextStyle(
-                    fontSize: 18.0,
+                borderRadius: BorderRadiusDirectional.circular(12.5)),
+            child: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    registerUndone[index].name.toString(),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 30.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
                   ),
-                  overflow: TextOverflow.clip,
-                  maxLines: 1,
-                ),
-                Text(
-                  'Data: ${registerUndone[index].date}' ?? " ",
-                  style: TextStyle(
-                    fontSize: 18.0,
+                  Text(
+                    registerUndone[index].atend ?? " ",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18.0,
+                    ),
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
                   ),
-                  overflow: TextOverflow.clip,
-                  maxLines: 1,
-                ),
-                Text(
-                  'Hora: ${registerUndone[index].hour}' ?? " ",
-                  style: TextStyle(
-                    fontSize: 18.0,
+                  Text(
+                    'Data: ${registerUndone[index].date}' ?? " ",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18.0,
+                    ),
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
                   ),
-                  overflow: TextOverflow.clip,
-                  maxLines: 1,
-                ),
-                RichText(
-                    text: TextSpan(
-                  text: 'Valor: ',
-                  style: TextStyle(color: Colors.black, fontSize: 15),
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: ' ${registerUndone[index].value} R\$' ?? ' ',
-                        style: TextStyle(
-                            color: Colors.lightGreenAccent, fontSize: 13)),
-                  ],
-                )),
-              ],
+                  Text(
+                    'Hora: ${registerUndone[index].hour}' ?? " ",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18.0,
+                    ),
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                  ),
+                  RichText(
+                      text: TextSpan(
+                    text: 'Valor: ',
+                    style: TextStyle(color: Colors.black, fontSize: 15),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: ' ${registerUndone[index].value} R\$' ?? ' ',
+                          style: TextStyle(
+                              color: Colors.lightGreen, fontSize: 13)),
+                    ],
+                  )),
+                ],
+              ),
             ),
           ),
         ),
@@ -158,12 +183,24 @@ class _HomePageState extends State<HomePage> {
 
   void _showOptions(BuildContext context, int index) {
     showModalBottomSheet(
+        backgroundColor: Colors.transparent,
         context: context,
         builder: (context) {
           return BottomSheet(
+            backgroundColor: Colors.transparent,
             onClosing: () {},
             builder: (context) {
               return Container(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Colors.white, Colors.white],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12.5),
+                      topRight: Radius.circular(12.5),
+                    )),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
@@ -180,9 +217,11 @@ class _HomePageState extends State<HomePage> {
                           child: Text(
                             'Atendimento concluído',
                             style: TextStyle(
-                                color: Colors.pinkAccent, fontSize: 20.0),
+                                color: Theme.of(context).primaryColor,
+                                fontSize: 20.0),
                           )),
                     ),
+                    Divider(),
                     Padding(
                       padding: EdgeInsets.all(10),
                       child: FlatButton(
@@ -193,9 +232,11 @@ class _HomePageState extends State<HomePage> {
                           child: Text(
                             'Editar',
                             style: TextStyle(
-                                color: Colors.pinkAccent, fontSize: 20.0),
+                                color: Theme.of(context).primaryColor,
+                                fontSize: 20.0),
                           )),
                     ),
+                    Divider(),
                     Padding(
                       padding: EdgeInsets.all(10),
                       child: FlatButton(
@@ -209,7 +250,8 @@ class _HomePageState extends State<HomePage> {
                           child: Text(
                             'Excluir',
                             style: TextStyle(
-                                color: Colors.pinkAccent, fontSize: 20.0),
+                                color: Theme.of(context).primaryColor,
+                                fontSize: 20.0),
                           )),
                     ),
                   ],

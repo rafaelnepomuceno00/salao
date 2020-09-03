@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
-import 'package:salao/helpers/register_helper.dart';
 import 'package:intl/intl.dart';
+import 'package:salao/helpers/register_helper.dart';
+
+
 
 class RegisterPage extends StatefulWidget {
   //contrutor com parametro opcional para editar ou criar um novo contato
@@ -20,7 +21,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final _atendController = TextEditingController();
   final _dateController = TextEditingController();
   final _hourController = TextEditingController();
-  final _valueController = MoneyMaskedTextController();
+  final _valueController = TextEditingController();
   final _doneController = TextEditingController();
 
   bool _userEdited = false;
@@ -149,6 +150,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: <Widget>[
                     Flexible(
                       child: TextField(
+                        readOnly: true,
                         onTap: () {},
                         controller: _dateController,
                         decoration: InputDecoration(
@@ -165,6 +167,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     Flexible(
                         child: TextField(
+                      readOnly: true,
                       controller: _hourController,
                       decoration: InputDecoration(
                           labelText: 'Hora:',

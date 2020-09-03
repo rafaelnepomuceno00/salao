@@ -28,10 +28,8 @@ class _AllRegisterState extends State<AllRegister> {
       appBar: AppBar(
         elevation: 10,
         title: Text('Agendamentos'),
-        backgroundColor: Colors.pinkAccent,
         centerTitle: true,
       ),
-      backgroundColor: Colors.white,
       drawer: DrawerPerson(),
       body: ListView.builder(
         padding: EdgeInsets.only(left: 5, right: 5, top: 4),
@@ -47,59 +45,71 @@ class _AllRegisterState extends State<AllRegister> {
     return GestureDetector(
         child: Card(
           elevation: 7,
-          color: Color.fromARGB(100, 250, 65, 200),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.5)),
-          child: Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  registerUndone[index].name.toString(),
-                  style: TextStyle(
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  overflow: TextOverflow.clip,
-                  maxLines: 1,
+          child: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.yellow[600], Colors.yellow[500]],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                 ),
-                Text(
-                  registerUndone[index].atend ?? " ",
-                  style: TextStyle(
-                    fontSize: 18.0,
+                borderRadius: BorderRadiusDirectional.circular(12.5)),
+            child: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    registerUndone[index].name.toString(),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 30.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
                   ),
-                  overflow: TextOverflow.clip,
-                  maxLines: 1,
-                ),
-                Text(
-                  'Data: ${registerUndone[index].date}' ?? " ",
-                  style: TextStyle(
-                    fontSize: 18.0,
+                  Text(
+                    registerUndone[index].atend ?? " ",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18.0,
+                    ),
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
                   ),
-                  overflow: TextOverflow.clip,
-                  maxLines: 1,
-                ),
-                Text(
-                  'Hora: ${registerUndone[index].hour}' ?? " ",
-                  style: TextStyle(
-                    fontSize: 18.0,
+                  Text(
+                    'Data: ${registerUndone[index].date}' ?? " ",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18.0,
+                    ),
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
                   ),
-                  overflow: TextOverflow.clip,
-                  maxLines: 1,
-                ),
-                RichText(
-                    text: TextSpan(
-                  text: 'Valor: ',
-                  style: TextStyle(color: Colors.black, fontSize: 15),
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: ' ${registerUndone[index].value} R\$' ?? ' ',
-                        style: TextStyle(
-                            color: Colors.lightGreenAccent, fontSize: 13)),
-                  ],
-                )),
-              ],
+                  Text(
+                    'Hora: ${registerUndone[index].hour}' ?? " ",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18.0,
+                    ),
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                  ),
+                  RichText(
+                      text: TextSpan(
+                    text: 'Valor: ',
+                    style: TextStyle(color: Colors.black, fontSize: 15),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: ' ${registerUndone[index].value} R\$' ?? ' ',
+                          style: TextStyle(
+                              color: Colors.lightGreen, fontSize: 13)),
+                    ],
+                  )),
+                ],
+              ),
             ),
           ),
         ),
@@ -134,9 +144,11 @@ class _AllRegisterState extends State<AllRegister> {
                           child: Text(
                             'Atendimento Concluído',
                             style: TextStyle(
-                                color: Colors.pinkAccent, fontSize: 20.0),
+                                color: Theme.of(context).primaryColor,
+                                fontSize: 20.0),
                           )),
                     ),
+                    Divider(),
                     Padding(
                       padding: EdgeInsets.all(10),
                       child: FlatButton(
@@ -147,9 +159,11 @@ class _AllRegisterState extends State<AllRegister> {
                           child: Text(
                             'Editar',
                             style: TextStyle(
-                                color: Colors.pinkAccent, fontSize: 20.0),
+                                color: Theme.of(context).primaryColor,
+                                fontSize: 20.0),
                           )),
                     ),
+                    Divider(),
                     Padding(
                       padding: EdgeInsets.all(10),
                       child: FlatButton(
@@ -163,7 +177,8 @@ class _AllRegisterState extends State<AllRegister> {
                           child: Text(
                             'Excluir',
                             style: TextStyle(
-                                color: Colors.pinkAccent, fontSize: 20.0),
+                                color: Theme.of(context).primaryColor,
+                                fontSize: 20.0),
                           )),
                     ),
                   ],
@@ -193,13 +208,16 @@ class _AllRegisterState extends State<AllRegister> {
   }
 
   void _filterRegister() {
+    register =[];
+    registerUndone=[];
+
+
     helper.getAllRegisters().then((list) {
       setState(() {
         register = list;
 
         register.forEach((element) {
           if (element.done == '0') registerUndone.add(element);
-
         });
 
         _orderList();

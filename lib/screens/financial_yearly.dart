@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:salao/helpers/register_helper.dart';
 
 // ignore: must_be_immutable
@@ -60,7 +61,6 @@ class _YearlyFinancialState extends State<YearlyFinancial> {
               ),
               bottomNavigationBar: BottomAppBar(
                 elevation: 5,
-                color: Colors.pinkAccent,
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Row(
@@ -93,7 +93,6 @@ class _YearlyFinancialState extends State<YearlyFinancial> {
               ),
               bottomNavigationBar: BottomAppBar(
                 elevation: 5,
-                color: Colors.pinkAccent,
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Row(
@@ -130,7 +129,6 @@ class _YearlyFinancialState extends State<YearlyFinancial> {
         trailing: Text('Valor: ${register[index].value}'),
       ),
     );
-
   }
 
   void _filterRegister2020() {
@@ -177,7 +175,13 @@ class _YearlyFinancialState extends State<YearlyFinancial> {
 
   void _orderList(List registerList) {
     registerList.sort((a, b) {
-      return a.date.toLowerCase().compareTo(b.date.toLowerCase());
+      var convertDate = a.date;
+      var d1 =
+          DateFormat(DateFormat.YEAR_MONTH_DAY, 'pt_br').parse(convertDate);
+      var convertDate2 = b.date;
+      var d2 =
+          DateFormat(DateFormat.YEAR_MONTH_DAY, 'pt_br').parse(convertDate2);
+      return d1.compareTo(d2);
     });
   }
 }

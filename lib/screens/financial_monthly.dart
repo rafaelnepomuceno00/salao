@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:salao/helpers/register_helper.dart';
 
 // ignore: must_be_immutable
@@ -115,9 +116,7 @@ class _MonthlyFinancialState extends State<MonthlyFinancial> {
                     hint: Text('Selecione um Mês '),
                   ),
                 ),
-                Expanded(
-                  child: _buildScafold20(context),
-                ),
+                Expanded(child: _buildScaffold20(context)),
               ],
             ),
             Column(
@@ -137,7 +136,7 @@ class _MonthlyFinancialState extends State<MonthlyFinancial> {
                   ),
                 ),
                 Expanded(
-                  child: _buildScafold21(context),
+                  child: _buildScaffold21(context),
                 ),
               ],
             ),
@@ -157,7 +156,6 @@ class _MonthlyFinancialState extends State<MonthlyFinancial> {
         registerFilter.forEach((element) {
           if (element.date.contains('2020')) {
             registerbyYear20.add(element);
-
           }
         });
         registerbyYear20.forEach((element) {
@@ -282,7 +280,6 @@ class _MonthlyFinancialState extends State<MonthlyFinancial> {
         });
         registerFilter.forEach((element) {
           if (element.date.contains('2021')) {
-
             registerbyYear21.add(element);
           }
         });
@@ -432,906 +429,67 @@ class _MonthlyFinancialState extends State<MonthlyFinancial> {
     );
   }
 
-  Widget _buildScafold20(BuildContext context) {
+  // ignore: missing_return
+  Widget _buildScaffold20(BuildContext context) {
     switch (_selectedMonth) {
       case 'Janeiro':
         {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r20jan.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r20jan);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total20jan.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
+          return Expanded(child: _monthlyScaffold(context, r20jan, total20jan));
         }
-
+        break;
       case 'Fevereiro':
         {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r20feb.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r20feb);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total20feb.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
+          return Expanded(child: _monthlyScaffold(context, r20feb, total20feb));
         }
         break;
       case 'Março':
         {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r20mar.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r20mar);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total20mar.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
+          return Expanded(child: _monthlyScaffold(context, r20mar, total20mar));
         }
         break;
       case 'Abril':
         {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r20apr.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r20apr);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total20apr.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
+          return Expanded(child: _monthlyScaffold(context, r20apr, total20apr));
         }
         break;
       case 'Maio':
         {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r20may.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r20may);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total20may.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
+          return Expanded(child: _monthlyScaffold(context, r20may, total20may));
         }
         break;
       case 'Junho':
         {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r20jun.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r20jun);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total20jun.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
+          return Expanded(child: _monthlyScaffold(context, r20jun, total20jun));
         }
         break;
       case 'Julho':
         {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r20jul.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r20jul);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total20jul.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
+          return Expanded(child: _monthlyScaffold(context, r20jul, total20jul));
         }
         break;
       case 'Agosto':
         {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r20aug.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r20aug);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total20aug.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
+          return Expanded(child: _monthlyScaffold(context, r20aug, total20aug));
         }
         break;
       case 'Setembro':
         {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r20sep.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r20sep);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total20sep.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
+          return Expanded(child: _monthlyScaffold(context, r20sep, total20sep));
         }
         break;
       case 'Outubro':
         {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r20oct.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r20oct);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total20oct.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
+          return Expanded(child: _monthlyScaffold(context, r20oct, total20oct));
         }
         break;
       case 'Novembro':
         {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r20nov.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r20nov);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total20nov.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
+          return Expanded(child: _monthlyScaffold(context, r20nov, total20nov));
         }
         break;
       case 'Dezembro':
         {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r20dec.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r20dec);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total20dec.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        }
-        break;
-      default:
-        return Scaffold(
-          body: Center(
-            child: Container(
-              child: Text('Selecione um mês'),
-            ),
-          ),
-        );
-    }
-  }
-  Widget _buildScafold21(BuildContext context) {
-    switch (_selectedMonth) {
-      case 'Janeiro':
-        {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r21jan.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r21jan);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total21jan.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        }
-
-      case 'Fevereiro':
-        {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r21feb.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r21feb);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total21feb.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        }
-        break;
-      case 'Março':
-        {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r21mar.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r21mar);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total21mar.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        }
-        break;
-      case 'Abril':
-        {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r21apr.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r21apr);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total21apr.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        }
-        break;
-      case 'Maio':
-        {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r21may.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r21may);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total21may.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        }
-        break;
-      case 'Junho':
-        {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r21jun.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r21jun);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total21jun.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        }
-        break;
-      case 'Julho':
-        {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r21jul.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r21jul);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total21jul.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        }
-        break;
-      case 'Agosto':
-        {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r21aug.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r21aug);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total21aug.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        }
-        break;
-      case 'Setembro':
-        {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r21sep.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r21sep);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total21sep.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        }
-        break;
-      case 'Outubro':
-        {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r21oct.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r21oct);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total21oct.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        }
-        break;
-      case 'Novembro':
-        {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r21nov.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r21nov);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total21nov.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        }
-        break;
-      case 'Dezembro':
-        {
-          return Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(top: 5, right: 8, left: 8, bottom: 5),
-              child: ListView.builder(
-                  itemCount: r21dec.length,
-                  itemBuilder: (context, index) {
-                    return _gridList(context, index, r21dec);
-                  }),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 5,
-              color: Colors.pinkAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '  Total:',
-                      style: TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      '  Valor: ${total21dec.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
+          return Expanded(child: _monthlyScaffold(context, r20dec, total20dec));
         }
         break;
       default:
@@ -1345,7 +503,116 @@ class _MonthlyFinancialState extends State<MonthlyFinancial> {
     }
   }
 
+  // ignore: missing_return
+  Widget _buildScaffold21(BuildContext context) {
+    switch (_selectedMonth) {
+      case 'Janeiro':
+        {
+          return Expanded(child: _monthlyScaffold(context, r21jan, total21jan));
+        }
+        break;
+      case 'Fevereiro':
+        {
+          return Expanded(child: _monthlyScaffold(context, r21feb, total21feb));
+        }
+        break;
+      case 'Março':
+        {
+          return Expanded(child: _monthlyScaffold(context, r21mar, total21mar));
+        }
+        break;
+      case 'Abril':
+        {
+          return Expanded(child: _monthlyScaffold(context, r21apr, total21apr));
+        }
+        break;
+      case 'Maio':
+        {
+          return Expanded(
+            child: _monthlyScaffold(context, r21may, total21may),
+          );
+        }
+        break;
+      case 'Junho':
+        {
+          return Expanded(child: _monthlyScaffold(context, r21jun, total21jun));
+        }
+        break;
+      case 'Julho':
+        {
+          return Expanded(child: _monthlyScaffold(context, r21jul, total21jul));
+        }
+        break;
+      case 'Agosto':
+        {
+          return Expanded(child: _monthlyScaffold(context, r21aug, total21aug));
+        }
+        break;
+      case 'Setembro':
+        {
+          return Expanded(child: _monthlyScaffold(context, r21sep, total21sep));
+        }
+        break;
+      case 'Outubro':
+        {
+          return Expanded(child: _monthlyScaffold(context, r21oct, total21oct));
+        }
+        break;
+      case 'Novembro':
+        {
+          return Expanded(child: _monthlyScaffold(context, r21nov, total21nov));
+        }
+        break;
+      case 'Dezembro':
+        {
+          return Expanded(child: _monthlyScaffold(context, r21dec, total21dec));
+        }
+        break;
+      default:
+        return Scaffold(
+          body: Center(
+            child: Container(
+              child: Text('Selecione um mês'),
+            ),
+          ),
+        );
+    }
+  }
 
+  @widget
+  Widget _monthlyScaffold(BuildContext context, List mList, double mValue) {
+    return Scaffold(
+      body: Container(
+        padding: const EdgeInsets.only(top: 5, right: 3.5, left: 3.5, bottom: 5),
+        child: ListView.builder(
+            itemCount: mList.length,
+            itemBuilder: (context, index) {
+              return _gridList(context, index, mList);
+            }),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        elevation: 5,
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Row(
+            children: [
+              Text(
+                '  Total:',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+              Spacer(),
+              Text(
+                '  Valor: ${mValue.toStringAsFixed(2)}',
+                style: TextStyle(
+                  fontSize: 25,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   void _orderList(List registerList) {
     registerList.sort((a, b) {

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:salao/screens/financial_monthly.dart';
 import 'package:salao/screens/financial_yearly.dart';
@@ -13,54 +14,57 @@ class Financial extends StatelessWidget {
         elevation: 10,
         title: Text(
           'Finanças',
-          style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
       ),
       drawer: DrawerPerson(),
-      body: GridView(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 1, childAspectRatio: 1.5),
-        padding: EdgeInsets.only(top: 85),
-        children: <Widget>[
-          Column(
-
+      body: Container(
+        padding: EdgeInsets.only(top: 100),
+        child: Center(
+          child: Column(
             children: [
-              IconButton(
-                  icon: Icon(
-                    Icons.calendar_today,
+              Column(
+                children: [
+                  IconButton(
+                      icon: Icon(
+                        Icons.calendar_today,
+                      ),
+                      iconSize: 45,
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => YearlyFinancial()));
+                      }),
+                  Text(
+                    'Anual',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  iconSize: 45,
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => YearlyFinancial()));
-                  }),
-              Text(
-                'Anual',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ],
+              ),
+              SizedBox(
+                height: 60,
+              ),
+              Column(
+                children: [
+                  IconButton(
+                      icon: Icon(Icons.calendar_view_day),
+                      iconSize: 45,
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MonthlyFinancial()));
+                      }),
+                  Text(
+                    'Mensal',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
             ],
           ),
-          Column(
-            children: [
-              IconButton(
-                  icon: Icon(Icons.calendar_view_day),
-                  iconSize: 45,
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MonthlyFinancial()));
-                  }),
-              Text(
-                'Mensal',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }
